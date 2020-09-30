@@ -9,7 +9,7 @@ jobs:
     steps:
     - id: set-matrix
       run: |
-        echo "::set-output name=matrix::{\"include\":[{\"simd\":\"avx\", \"os\":\"ubuntu-latest\"},{\"simd\":\"sse2\",\"os\":\"ubuntu-latest\"}]}"
+        echo "::set-output name=matrix::{\"include\":[{\"simd\":\"avx\", \"os\":\"ubuntu-latest\"},{\"simd\":\"sse2\",\"os\":\"ubuntu-16.04\"}]}"
 
   build:
     needs: setup
