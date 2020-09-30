@@ -5,18 +5,16 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      simd: ${{ steps.set-matrix.outputs.simd }}
-      os: ${{ steps.set-matrix.outputs.os }}
+      simd: ${{ steps.set-matrix.outputs.matrix }}
     steps:
     - id: set-matrix
       run: |
-        echo "::set-output name=os::{\"include\":{\"os\":\"ubuntu\"}}"
-        echo "::set-output name=simd::{\"include\":[{\"simd\":\"avx\"},{\"simd\":\"sse2\"}]}"
+        echo "::set-output name=matrix::{\"include\":[{\"simd\":\"avx\", \"os\":\"ubuntu-latest\"},{\"simd\":\"sse2\",\"os\":\"ubuntu-latest\"}]}"
 
   build:
     needs: setup
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{fromJson(needs.setup.outputs.simd)}}
+      matrix: ${{fromJson(needs.setup.outputs.matrix.simd)}}
     steps:
     - run: echo ${{matrix.simd}}
