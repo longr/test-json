@@ -2,7 +2,7 @@
 name: build
 on: push
 jobs:
-  job1:
+  setup:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -12,8 +12,8 @@ jobs:
       #run: echo "::set-output name=matrix::{\"include\":[{\"project\":[{\"simd\":\"one\"},{\"simd\":\"two\"}]}]}"
       #run: echo "::set-output name=matrix::{\"include\":{\"os\":\"ubuntu\",\"simd\":[\"sse2\",\"avx\"]}}"
       run: echo "::set-output name=matrix::{\"include\":[{\"os\":\"ubuntu\"}]}"
-  job2:
-    needs: job1
+  build:
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{fromJson(needs.job1.outputs.matrix)}}
