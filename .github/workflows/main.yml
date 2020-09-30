@@ -9,8 +9,9 @@ jobs:
       os: ${{ steps.set-matrix.outputs.os }}
     steps:
     - id: set-matrix
-      run: echo "::set-output name=os::{\"include\":{\"os\":\"ubuntu\"}}"
-      run: echo "::set-output name=simd::{\"include\":[{\"simd\":\"avx\"},{\"simd\":\"sse2\"}]}"
+      run: |
+        echo "::set-output name=os::{\"include\":{\"os\":\"ubuntu\"}}"
+        echo "::set-output name=simd::{\"include\":[{\"simd\":\"avx\"},{\"simd\":\"sse2\"}]}"
 
   build:
     needs: setup
