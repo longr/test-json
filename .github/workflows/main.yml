@@ -10,7 +10,8 @@ jobs:
     - id: set-matrix
       #run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
       #run: echo "::set-output name=matrix::{\"include\":[{\"project\":[{\"simd\":\"one\"},{\"simd\":\"two\"}]}]}"
-      run: echo "::set-output name=matrix::{\"include\":{\"os\":\"ubuntu\",\"simd\":[\"sse2\",\"avx\"]}}"
+      #run: echo "::set-output name=matrix::{\"include\":{\"os\":\"ubuntu\",\"simd\":[\"sse2\",\"avx\"]}}"
+      run: echo "::set-output name=matrix::{\"include\":[{\"os\":\"ubuntu\"}]}"
   job2:
     needs: job1
     runs-on: ubuntu-latest
