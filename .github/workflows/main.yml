@@ -5,17 +5,17 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      simd: ${{ steps.set-matrix.outputs.simd }}
+      os: ${{ steps.set-matrix.outputs.os }}
     steps:
     - id: set-matrix
-      #run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
-      #run: echo "::set-output name=matrix::{\"include\":[{\"project\":[{\"simd\":\"one\"},{\"simd\":\"two\"}]}]}"
-      run: echo "::set-output name=matrix::{\"include\":{\"os\":\"ubuntu\",\"simd\":[\"sse2\",\"avx\"]}}"
-      #run: echo "::set-output name=matrix::{\"include\":[{\"os\":\"ubuntu\"}],\"include\":[{\"py\":\"v2\"}]}"
+      run: echo "::set-output name=os::{\"include\":{\"os\":\"ubuntu\"}}"
+      run: echo "::set-output name=simd::{\"include\":[{\"simd\":\"avx\"},{\"simd\":\"sse2\"}]}"
+
   build:
     needs: setup
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{fromJson(needs.setup.outputs.matrix)}}
+      matrix: ${{fromJson(needs.setup.outputs.simd)}}
     steps:
     - run: echo ${{matrix.simd}}
